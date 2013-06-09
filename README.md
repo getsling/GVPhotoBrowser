@@ -9,11 +9,10 @@ GVPhotoBrowser consists of `GVPhotoBrowser`, a `UIScrollView` subclass to be use
 
 
 ## Example
-An example of using the photo browser to load remote images using [SDWebImage](https://github.com/rs/SDWebImage). In this example the GVPhotoBrowser object is loaded from a nib or storyboard via the IBOutlet.
+An example of using the photo browser to load remote images using [SDWebImage](https://github.com/rs/SDWebImage).
 
 ```objective-c
-@interface ViewController : UIViewController <GVPhotoBrowserDataSource, GVPhotoBrowserDelegate>
-@property (weak, nonatomic) IBOutlet GVPhotoBrowser *photoBrowser;
+@interface ViewController : GVPhotoBrowserViewController
 @property (strong, nonatomic) NSArray *imageUrls;
 @end
 ```
@@ -42,4 +41,12 @@ An example of using the photo browser to load remote images using [SDWebImage](h
 - (void)photoBrowser:(GVPhotoBrowser *)photoBrowser didSwitchToIndex:(NSUInteger)index {
     self.title = [NSString stringWithFormat:@"%i of %i", index, [self.imageUrls count]];
 }
+```
+
+If you don't want to use the `GVPhotoBrowserViewController` subclass, you can just use `GVPhotoBrowser` directly.
+
+```objective-c
+@interface ViewController : UIViewController <GVPhotoBrowserDataSource, GVPhotoBrowserDelegate>
+@property (weak, nonatomic) IBOutlet GVPhotoBrowser *photoBrowser;
+@end
 ```
