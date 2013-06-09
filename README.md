@@ -7,6 +7,8 @@ GVPhotoBrowser is extremely flexible. Where other photo browsers expect an array
 
 GVPhotoBrowser consists of `GVPhotoBrowser`, a `UIScrollView` subclass to be used directly in your own view controllers; and `GVPhotoBrowserViewController` which you can subclass, and which will take care of creating the `GVPhotoBrowser` with the correct frame and auto resizing masks, and the delegate and datasource set to itself. Again, very similar to `UITableView` and `UITableViewController`.
 
+It does not come with title or `UIPageControl` handling. Adding a page control is easily done in your view controller, use the delegate to set the current page. And if you want to show titles or captions, this can be done by customizing the `UIImageView` that your datasource returns. These design decisions are what make GVPhotoBrowser so flexible.
+
 
 ## Example
 An example of using the photo browser to load remote images using [SDWebImage](https://github.com/rs/SDWebImage).
