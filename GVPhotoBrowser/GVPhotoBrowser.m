@@ -31,6 +31,8 @@
 //
 // The implementation of the ScrollViewDelegate class can be found
 // after the GVPhotoBrowser implementation.
+//
+// Idea taken from http://stackoverflow.com/a/9986842/403425
 
 
 @interface ScrollViewDelegate : NSObject <UIScrollViewDelegate>
