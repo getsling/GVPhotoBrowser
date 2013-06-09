@@ -17,7 +17,7 @@
 }
 
 - (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser imageViewForIndex:(NSUInteger)index {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"duck.jpg"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -27,7 +27,7 @@
 #pragma mark - GVPhotoBrowserDelegate
 
 - (void)photoBrowser:(GVPhotoBrowser *)photoBrowser didSwitchToIndex:(NSUInteger)index {
-    NSLog(@"didSwitchToIndex: %i", index);
+    self.title = [NSString stringWithFormat:@"%i of %i", index, 5];
 }
 
 @end
