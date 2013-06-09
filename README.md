@@ -3,9 +3,9 @@ A reusable photo browser for iOS using the datasource and delegate patterns.
 
 
 ## Features
-GVPhotoBrowser is extremely flexibly. Where other photo browsers expect an array of UIImage objects NSURL's, GVPhotoBrowser instead uses the datasource pattern and will ask you to provide it with a UIImageView for every image. It's very similar to UITableView.
+GVPhotoBrowser is extremely flexible. Where other photo browsers expect an array of `UIImage` objects `NSURL`'s, GVPhotoBrowser instead uses the datasource pattern and will ask you to provide it with a `UIImageView` for every image. It's very similar to `UITableView`.
 
-GVPhotoBrowser consists of a UIScrollView subclass to be used directly in your own view controllers, and a GVPhotoBrowserViewController which you can subclass, and which will take care of creating the GVPhotoBrowser with the correct frame and auto resizing masks. Again, very similar to UITableView and UITableViewController.
+GVPhotoBrowser consists of `GVPhotoBrowser`, a `UIScrollView` subclass to be used directly in your own view controllers; and `GVPhotoBrowserViewController` which you can subclass, and which will take care of creating the `GVPhotoBrowser` with the correct frame and auto resizing masks. Again, very similar to `UITableView` and `UITableViewController`.
 
 
 ## Example
