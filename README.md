@@ -14,7 +14,7 @@ An example of using the photo browser to load remote images using [SDWebImage](h
 ```objective-c
 @interface ViewController : UIViewController <GVPhotoBrowserDataSource, GVPhotoBrowserDelegate>
 @property (weak, nonatomic) IBOutlet GVPhotoBrowser *photoBrowser;
-@propery (strong, nonatomic) NSArray *imageUrls;
+@property (strong, nonatomic) NSArray *imageUrls;
 @end
 ```
 
