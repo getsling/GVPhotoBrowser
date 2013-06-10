@@ -115,6 +115,11 @@
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleMemoryWarning)
+                                                 name:UIApplicationDidReceiveMemoryWarningNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(statusBarOrientationWillChangeNotification:)
                                                  name:UIApplicationWillChangeStatusBarOrientationNotification
                                                object:nil];
@@ -127,6 +132,8 @@
 
 - (void)dealloc {
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
@@ -224,7 +231,7 @@
     }
 }
 
-#pragma mark - Handling orientation changes
+#pragma mark - Notification handlers
 
 - (void)statusBarOrientationWillChangeNotification:(NSNotification *)notification {
     self.rotationInProgress = YES;
@@ -255,6 +262,22 @@
     }
 
     self.rotationInProgress = NO;
+}
+
+- (void)handleMemoryWarning {
+	// Unload non-visible pages in case the memory is scarse
+	if ([self.imageViews count]) {
+		UIImageView *controller;
+		for (NSUInteger pageIndex = 0; pageIndex < self.imageViews.count; ++pageIndex) {
+			if (pageIndex < self.currentIndex-1 || pageIndex > self.currentIndex+1) {
+				controller = [self.imageViews objectAtIndex:pageIndex];
+				if ((NSNull *)controller != [NSNull null]) {
+					[controller removeFromSuperview];
+					[self.imageViews replaceObjectAtIndex:pageIndex withObject:[NSNull null]];
+				}
+			}
+		}
+	}
 }
 
 #pragma mark - Public
