@@ -28,9 +28,6 @@
 
 @property (weak, nonatomic) IBOutlet id <GVPhotoBrowserDataSource> dataSource;
 @property (weak, nonatomic) IBOutlet id <GVPhotoBrowserDelegate> delegate;
-@property (nonatomic) NSUInteger currentIndex;
-
-- (void)reloadImageViews;
-- (void)reloadImageViewAtIndex:(NSUInteger)index;
+@property (nonatomic) NSInteger currentIndex;
 
 @end

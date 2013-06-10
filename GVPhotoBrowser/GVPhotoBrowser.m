@@ -36,7 +36,7 @@
 
 
 @interface ScrollViewDelegate : NSObject <UIScrollViewDelegate>
-@property (strong, nonatomic) id <GVPhotoBrowserDelegate> photoBrowserDelegate;
+@property (weak, nonatomic) id <GVPhotoBrowserDelegate> photoBrowserDelegate;
 @end
 
 
@@ -55,17 +55,21 @@
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    [self initInternalDelegate];
+    [self sharedInit];
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
-    [self initInternalDelegate];
+    [self sharedInit];
     return self;
 }
 
-- (void)initInternalDelegate {
+- (void)sharedInit {
+    self.pagingEnabled = YES;
+    self.showsVerticalScrollIndicator = NO;
+    self.showsHorizontalScrollIndicator = NO;
+
     self.internalDelegate = [[ScrollViewDelegate alloc] init];
     [super setDelegate:self.internalDelegate];
 }
@@ -83,20 +87,48 @@
 
 #pragma mark - View Lifecycle
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    if (self.dataSource) {
+        [self start];
+    }
+}
+
 - (void)didMoveToSuperview {
     [super didMoveToSuperview];
+    if (self.dataSource) {
+        [self start];
+    }
+}
 
-    self.pagingEnabled = YES;
-    self.showsVerticalScrollIndicator = NO;
-    self.showsHorizontalScrollIndicator = NO;
-
+- (void)start {
     self.imageViews = nil;
     [self sizeScrollView];
 
-    self.currentIndex = 0;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photoBrowser:didSwitchToIndex:)]) {
+        [self.delegate photoBrowser:self didSwitchToIndex:0];
+    }
 
     [self loadPhotoAtIndex:0];
     [self loadPhotoAtIndex:1];
+
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(statusBarOrientationWillChangeNotification:)
+                                                 name:UIApplicationWillChangeStatusBarOrientationNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChangedNotification:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+}
+
+- (void)dealloc {
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 #pragma mark - Private
@@ -124,23 +156,24 @@
 
 - (void)sizeScrollView {
     self.contentSize = CGSizeMake(self.frame.size.width * [self.numberOfPhotos integerValue], self.frame.size.height);
+    self.contentOffset = CGPointMake(self.currentIndex * self.frame.size.width, 0);
 }
 
-//- (void)layoutPages {
-//    // Move all visible pages to their places, because otherwise they may overlap
-//    UIImageView *controller;
-//    for (NSUInteger pageIndex = 0; pageIndex < self.imageViews.count; ++pageIndex) {
-//        controller = [self.imageViews objectAtIndex:pageIndex];
-//
-//        if ((NSNull *)controller != [NSNull null]) {
-//            [self layoutPhotoAtIndex:pageIndex];
-//        }
-//    }
-//}
+- (void)layoutPages {
+    // Move all visible pages to their places, because otherwise they may overlap
+    UIImageView *controller;
+    for (NSUInteger pageIndex = 0; pageIndex < [self.numberOfPhotos integerValue]; ++pageIndex) {
+        controller = [self.imageViews objectAtIndex:pageIndex];
+
+        if ((NSNull *)controller != [NSNull null]) {
+            [self layoutPhotoAtIndex:pageIndex];
+        }
+    }
+}
 
 - (void)loadPhotoAtIndex:(NSUInteger)index {
-    if (index >= self.imageViews.count) return;
-    if (!self.imageViews.count) return;
+    if (index >= [self.numberOfPhotos integerValue]) return;
+    if (![self.numberOfPhotos integerValue]) return;
 
     // Replace the placeholder if necessary
     UIImageView *controller = [self.imageViews objectAtIndex:index];
@@ -161,7 +194,6 @@
 
     CGRect frame = self.frame;
     frame.origin.x = self.frame.size.width * index;
-
     controller.frame = frame;
 }
 
@@ -169,39 +201,66 @@
     if (self.rotationInProgress) return;
 
     NSInteger index = floor((self.contentOffset.x - self.frame.size.width / 2) / self.frame.size.width) + 1;
+    [self setCurrentIndex:index andScroll:NO];
+}
 
-    if (index != self.currentIndex) {
+- (void)setCurrentIndex:(NSInteger)currentIndex andScroll:(BOOL)scroll {
+    if (currentIndex != _currentIndex && currentIndex >= 0 && currentIndex < [self.numberOfPhotos integerValue]) {
+        _currentIndex = currentIndex;
+
+        if (scroll) {
+            self.contentOffset = CGPointMake(currentIndex * self.frame.size.width, 0);
+        }
+
         // Load the visible page and the page on either side of it
-        [self loadPhotoAtIndex:index];
-        [self loadPhotoAtIndex:index + 1];
-        [self loadPhotoAtIndex:index - 1];
+        [self loadPhotoAtIndex:currentIndex];
+        [self loadPhotoAtIndex:currentIndex + 1];
+        [self loadPhotoAtIndex:currentIndex - 1];
 
         // Notify delegate
         if (self.delegate && [self.delegate respondsToSelector:@selector(photoBrowser:didSwitchToIndex:)]) {
-            [self.delegate photoBrowser:self didSwitchToIndex:index];
+            [self.delegate photoBrowser:self didSwitchToIndex:currentIndex];
         }
     }
 }
 
+#pragma mark - Handling orientation changes
+
+- (void)statusBarOrientationWillChangeNotification:(NSNotification *)notification {
+    self.rotationInProgress = YES;
+
+    // Hide all pages except the current one, because pages may overlap during animation
+    UIImageView *controller;
+    for (NSUInteger pageIndex = 0; pageIndex < [self.numberOfPhotos integerValue]; ++pageIndex) {
+        controller = [self.imageViews objectAtIndex:pageIndex];
+
+        if ((NSNull *)controller != [NSNull null]) {
+            controller.hidden = (pageIndex != self.currentIndex);
+        }
+    }
+}
+
+- (void)orientationChangedNotification:(NSNotification *)notification {
+    [self sizeScrollView];
+    [self layoutPages];
+
+    // Unhide all pages
+    UIImageView *controller;
+    for (NSUInteger pageIndex = 0; pageIndex < [self.numberOfPhotos integerValue]; ++pageIndex) {
+        controller = [self.imageViews objectAtIndex:pageIndex];
+
+        if ((NSNull *)controller != [NSNull null]) {
+            controller.hidden = NO;
+        }
+    }
+
+    self.rotationInProgress = NO;
+}
+
 #pragma mark - Public
 
-- (void)setCurrentIndex:(NSUInteger)currentIndex {
-    if (currentIndex != _currentIndex) {
-        _currentIndex = currentIndex;
-        self.contentOffset = CGPointMake(currentIndex * self.frame.size.width, 0);
-        [self loadPhotoAtIndex:currentIndex];
-    }
-}
-
-- (void)reloadImageViews {
-    for (int i=0; i < [self.numberOfPhotos integerValue]; i++) {
-        [self reloadImageViewAtIndex:i];
-    }
-}
-
-- (void)reloadImageViewAtIndex:(NSUInteger)index {
-    UIImageView *controller = [self.dataSource photoBrowser:self imageViewForIndex:index];
-    [self.imageViews replaceObjectAtIndex:index withObject:controller];
+- (void)setCurrentIndex:(NSInteger)currentIndex {
+    [self setCurrentIndex:currentIndex andScroll:YES];
 }
 
 @end
