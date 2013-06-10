@@ -21,6 +21,7 @@
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    imageView.image = [UIImage imageNamed:@"duck.jpg"];
     return imageView;
 }
 

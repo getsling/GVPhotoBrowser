@@ -168,9 +168,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.rotationInProgress) return;
 
-    // Forward deletate call
-    [self.delegate scrollViewDidScroll:self];
-
     NSInteger index = floor((self.contentOffset.x - self.frame.size.width / 2) / self.frame.size.width) + 1;
 
     if (index != self.currentIndex) {
