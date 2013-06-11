@@ -11,7 +11,7 @@ It does not come with title or `UIPageControl` handling. Adding a page control i
 
 
 ## Example
-An example of using the photo browser to load remote images using [SDWebImage](https://github.com/rs/SDWebImage).
+An example of using the photo browser to load remote images using [SDWebImage](https://github.com/rs/SDWebImage) (something like [SDWebImage-ProgressView](https://github.com/kevinrenskers/SDWebImage-ProgressView) would be a very good fit as well):
 
 ```objective-c
 @interface ViewController : GVPhotoBrowserViewController
@@ -52,3 +52,6 @@ If you don't want to use the `GVPhotoBrowserViewController` subclass, you can ju
 @property (weak, nonatomic) IBOutlet GVPhotoBrowser *photoBrowser;
 @end
 ```
+
+## Known issues
+GVPhotoBrowser is very much a work in progress, and the public API might change. It's also not feature complete yet, zooming/panning of individual photos is missing at the moment.
