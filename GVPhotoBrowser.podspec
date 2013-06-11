@@ -6,8 +6,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.author       = { "Kevin Renskers" => "info@mixedcase.nl" }
   s.source       = { :git => "https://github.com/gangverk/GVPhotoBrowser.git", :tag => s.version.to_s }
-  s.ios.deployment_target = '4.0'
-  s.osx.deployment_target = '10.6'
+  s.platform	 = :ios, '5.0'
   s.source_files = 'GVPhotoBrowser/*.{h,m}'
   s.requires_arc = true
 end
