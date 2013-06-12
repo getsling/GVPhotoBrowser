@@ -1,5 +1,5 @@
 # GVPhotoBrowser
-A reusable photo browser for iOS using the datasource and delegate patterns. Handles device orientation changes and memory warnings.
+A reusable, zoomable image gallery for iOS using the datasource and delegate patterns. Handles device orientation changes and memory warnings.
 
 
 ## Features
