@@ -28,7 +28,7 @@ An example of using the photo browser to load remote images using [SDWebImage](h
     return [self.imageUrls count];
 }
 
-- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser modifyImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
+- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser customizeImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
     NSURL *url = self.imageUrls[index];
     [imageView setImageWithURL:url];
     return imageView;
@@ -37,7 +37,7 @@ An example of using the photo browser to load remote images using [SDWebImage](h
 #pragma mark - GVPhotoBrowserDelegate
 
 - (void)photoBrowser:(GVPhotoBrowser *)photoBrowser didSwitchToIndex:(NSUInteger)index {
-    self.title = [NSString stringWithFormat:@"%i of %i", index, [self.imageUrls count]];
+    self.title = [NSString stringWithFormat:@"%i of %i", index+1, [self.imageUrls count]];
 }
 ```
 
