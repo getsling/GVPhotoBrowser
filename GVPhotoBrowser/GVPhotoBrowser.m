@@ -7,7 +7,7 @@
 //
 
 #import "GVPhotoBrowser.h"
-#import "GVPhoto.h"
+#import "GVPhotoZoomScrollView.h"
 
 
 // ScrollViewDelegate explanation
@@ -176,10 +176,15 @@
     }
 }
 
-- (GVPhoto *)createScrollViewForIndex:(NSUInteger)index {
-    GVPhoto *scrollView = [[GVPhoto alloc] initWithFrame:self.frame];
+- (GVPhotoZoomScrollView *)createScrollViewForIndex:(NSUInteger)index {
+    GVPhotoZoomScrollView *scrollView = [[GVPhotoZoomScrollView alloc] initWithFrame:self.frame];
     scrollView.delegate = self;
+    scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     scrollView.imageView = [self createImageViewForIndex:index withFrame:scrollView.bounds];
+
+    if ([self.dataSource respondsToSelector:@selector(photoBrowser:customizeScrollView:forIndex:)]) {
+        scrollView = [self.dataSource photoBrowser:self customizeScrollView:scrollView forIndex:index];
+    }
 
     return scrollView;
 }
@@ -193,9 +198,10 @@
         imageView = [[UIImageView alloc] initWithFrame:frame];
         imageView.clipsToBounds = YES;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     }
 
-    imageView = [self.dataSource photoBrowser:self modifyImageView:imageView forIndex:index];
+    imageView = [self.dataSource photoBrowser:self customizeImageView:imageView forIndex:index];
 
     return imageView;
 }
@@ -310,11 +316,11 @@
 
 #pragma mark - Per photo scroll view
 
-- (UIView *)viewForZoomingInScrollView:(GVPhoto *)scrollView {
+- (UIView *)viewForZoomingInScrollView:(GVPhotoZoomScrollView *)scrollView {
     return scrollView.imageView;
 }
 
-- (void)scrollViewDidZoom:(GVPhoto *)scrollView {
+- (void)scrollViewDidZoom:(GVPhotoZoomScrollView *)scrollView {
     // The scroll view has zoomed, so you need to re-center the contents
     [scrollView centerScrollViewContents];
 }

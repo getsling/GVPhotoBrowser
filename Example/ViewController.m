@@ -11,13 +11,17 @@
 
 @implementation ViewController
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+    return YES;
+}
+
 #pragma mark - GVPhotoBrowserDataSource
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(GVPhotoBrowser *)photoBrowser {
     return 5;
 }
 
-- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser modifyImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
+- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser customizeImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
     NSArray *letters = @[ @"a", @"b", @"c", @"d", @"e" ];
     NSString *color = [@"" stringByPaddingToLength:6 withString:letters[index] startingAtIndex:0];
 

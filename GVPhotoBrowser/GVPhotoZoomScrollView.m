@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Gangverk. All rights reserved.
 //
 
-#import "GVPhoto.h"
+#import "GVPhotoZoomScrollView.h"
 
-@implementation GVPhoto
+@implementation GVPhotoZoomScrollView
 
 - (void)setImageView:(UIImageView *)imageView {
     _imageView = imageView;

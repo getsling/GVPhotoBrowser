@@ -11,7 +11,7 @@
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="pyO-EV-Ug7"/>
                 </viewController>
@@ -22,7 +22,6 @@
         <!--Navigation Controller-->
         <scene sceneID="An8-8z-Gdm">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bhA-HF-qAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="Feq-it-a8V" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jY1-Bw-58U">
@@ -34,6 +33,7 @@
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="Yji-1x-aYy"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bhA-HF-qAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="249" y="172"/>
         </scene>

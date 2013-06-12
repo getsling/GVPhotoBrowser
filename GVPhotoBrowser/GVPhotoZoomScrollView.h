@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GVPhoto : UIScrollView
+@interface GVPhotoZoomScrollView : UIScrollView
 
 @property (strong, nonatomic) UIImageView *imageView;
 

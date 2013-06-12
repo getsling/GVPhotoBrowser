@@ -28,7 +28,7 @@
     return 0;
 }
 
-- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser modifyImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
+- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser customizeImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
     // To be implemented by subclasses
     return nil;
 }
