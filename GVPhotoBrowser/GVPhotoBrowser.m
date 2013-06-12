@@ -105,12 +105,9 @@
     self.imageViews = nil;
     [self sizeScrollView];
 
-    if (self.delegate && [self.delegate respondsToSelector:@selector(photoBrowser:didSwitchToIndex:)]) {
-        [self.delegate photoBrowser:self didSwitchToIndex:0];
-    }
-
-    [self loadPhotoAtIndex:0];
-    [self loadPhotoAtIndex:1];
+    // Loads the first 2 photos and informs the delegate
+    _currentIndex = -1; // needed otherwise `setcurrentIndex:andScroll:` won't do anything
+    [self setCurrentIndex:0 andScroll:NO];
 
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 
@@ -178,6 +175,17 @@
     }
 }
 
+- (UIImageView *)imageView {
+    if ([self.dataSource respondsToSelector:@selector(baseImageViewForPhotoBrowser:)]) {
+        return [self.dataSource baseImageViewForPhotoBrowser:self];
+    }
+
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    imageView.clipsToBounds = YES;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    return imageView;
+}
+
 - (void)loadPhotoAtIndex:(NSUInteger)index {
     if (index >= [self.numberOfPhotos integerValue]) return;
     if (![self.numberOfPhotos integerValue]) return;
@@ -185,7 +193,7 @@
     // Replace the placeholder if necessary
     UIImageView *controller = [self.imageViews objectAtIndex:index];
     if ((NSNull *)controller == [NSNull null]) {
-        controller = [self.dataSource photoBrowser:self imageViewForIndex:index];
+        controller = [self.dataSource photoBrowser:self modifyImageView:[self imageView] forIndex:index];
         [self.imageViews replaceObjectAtIndex:index withObject:controller];
     }
 
@@ -199,8 +207,8 @@
 - (void)layoutPhotoAtIndex:(NSUInteger)index {
     UIImageView *controller = [self.imageViews objectAtIndex:index];
 
-    CGRect frame = self.frame;
-    frame.origin.x = self.frame.size.width * index;
+    CGRect frame = self.bounds;
+    frame.origin.x = self.bounds.size.width * index;
     controller.frame = frame;
 }
 

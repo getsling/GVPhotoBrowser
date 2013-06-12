@@ -13,17 +13,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.photoBrowser = [[GVPhotoBrowser alloc] initWithFrame:self.view.frame];
+    self.photoBrowser = [[GVPhotoBrowser alloc] initWithFrame:self.view.bounds];
     self.photoBrowser.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.photoBrowser.delegate = self;
     self.photoBrowser.dataSource = self;
 
     [self.view addSubview:self.photoBrowser];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - GVPhotoBrowserDataSource
@@ -33,15 +28,9 @@
     return 0;
 }
 
-- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser imageViewForIndex:(NSUInteger)index {
+- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser modifyImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
     // To be implemented by subclasses
     return nil;
-}
-
-#pragma mark - GVPhotoBrowserDelegate
-
-- (void)photoBrowser:(GVPhotoBrowser *)photoBrowser didSwitchToIndex:(NSUInteger)index {
-    // To be implemented by subclasses
 }
 
 @end

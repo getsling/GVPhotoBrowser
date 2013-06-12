@@ -12,9 +12,20 @@
 
 
 @protocol GVPhotoBrowserDataSource <NSObject>
+// How many photos do you want to show?
 @required
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(GVPhotoBrowser *)photoBrowser;
-- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser imageViewForIndex:(NSUInteger)index;
+
+// The method is passed an imageview that's set up with the correct content mode, auto resizing mask, etc.
+// You can modify the imageview as you see fit, set its image property, add subviews, whatever you want.
+@required
+- (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser modifyImageView:(UIImageView *)imageView forIndex:(NSUInteger)index;
+
+// The imageview that's passed to the photoBrowser:modifyImageView:forIndex: method is created by GVPhotoBrowser.
+// You can also create your own "base" imageview that's then passed to that method instead.
+@optional
+- (UIImageView *)baseImageViewForPhotoBrowser:(GVPhotoBrowser *)photoBrowser;
+
 @end
 
 
