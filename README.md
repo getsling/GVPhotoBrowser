@@ -50,4 +50,4 @@ If you don't want to use the `GVPhotoBrowserViewController` subclass, you can ju
 ```
 
 ## Known issues
-GVPhotoBrowser is very much a work in progress, and the public API might change. It's also not feature complete yet, zooming/panning of individual photos is missing at the moment.
+GVPhotoBrowser is very much a work in progress, and the public API might change.
