@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "UIImageView+WebCache.h"
 
 @implementation ViewController
 
@@ -17,7 +18,11 @@
 }
 
 - (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser modifyImageView:(UIImageView *)imageView forIndex:(NSUInteger)index {
-    imageView.image = [UIImage imageNamed:@"duck.jpg"];
+    NSArray *letters = @[ @"a", @"b", @"c", @"d", @"e" ];
+    NSString *color = [@"" stringByPaddingToLength:6 withString:letters[index] startingAtIndex:0];
+
+    NSString *urlString = [NSString stringWithFormat:@"http://placehold.it/350x500/%@/ffffff&text=%i", color, index+1];
+    [imageView setImageWithURL:[NSURL URLWithString:urlString]];
     return imageView;
 }
 

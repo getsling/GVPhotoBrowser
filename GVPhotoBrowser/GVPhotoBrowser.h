@@ -24,7 +24,7 @@
 // The imageview that's passed to the photoBrowser:modifyImageView:forIndex: method is created by GVPhotoBrowser.
 // You can also create your own "base" imageview that's then passed to that method instead.
 @optional
-- (UIImageView *)baseImageViewForPhotoBrowser:(GVPhotoBrowser *)photoBrowser;
+- (UIImageView *)baseImageViewForPhotoBrowser:(GVPhotoBrowser *)photoBrowser withFrame:(CGRect)frame;
 
 @end
 

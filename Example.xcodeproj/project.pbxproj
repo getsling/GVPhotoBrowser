@@ -22,6 +22,8 @@
 		0A6D906D1764C05900D3A20B /* GVPhotoBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D906C1764C05900D3A20B /* GVPhotoBrowserViewController.m */; };
 		0A6D907817651EB100D3A20B /* duck.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D907717651EB100D3A20B /* duck.jpg */; };
 		0A72B36E17688A760046E1F2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A72B36D17688A760046E1F2 /* README.md */; };
+		0A72B3711768B9F50046E1F2 /* GVPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A72B3701768B9F50046E1F2 /* GVPhoto.m */; };
+		791BB93E06AA48939B828C14 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0A464AB0284118862802F5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +49,10 @@
 		0A6D906C1764C05900D3A20B /* GVPhotoBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVPhotoBrowserViewController.m; sourceTree = "<group>"; };
 		0A6D907717651EB100D3A20B /* duck.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = duck.jpg; sourceTree = "<group>"; };
 		0A72B36D17688A760046E1F2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		0A72B36F1768B9F50046E1F2 /* GVPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVPhoto.h; sourceTree = "<group>"; };
+		0A72B3701768B9F50046E1F2 /* GVPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVPhoto.m; sourceTree = "<group>"; };
+		3F0A464AB0284118862802F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C43627F23CDD4C55B8EA5895 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,7 @@
 				0A6D90451764C00C00D3A20B /* UIKit.framework in Frameworks */,
 				0A6D90471764C00C00D3A20B /* Foundation.framework in Frameworks */,
 				0A6D90491764C00C00D3A20B /* CoreGraphics.framework in Frameworks */,
+				791BB93E06AA48939B828C14 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +78,7 @@
 				0A6D90431764C00C00D3A20B /* Frameworks */,
 				0A6D90421764C00C00D3A20B /* Products */,
 				0A72B36D17688A760046E1F2 /* README.md */,
+				C43627F23CDD4C55B8EA5895 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -88,6 +96,7 @@
 				0A6D90441764C00C00D3A20B /* UIKit.framework */,
 				0A6D90461764C00C00D3A20B /* Foundation.framework */,
 				0A6D90481764C00C00D3A20B /* CoreGraphics.framework */,
+				3F0A464AB0284118862802F5 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -123,6 +132,8 @@
 		0A6D90671764C02E00D3A20B /* GVPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				0A72B36F1768B9F50046E1F2 /* GVPhoto.h */,
+				0A72B3701768B9F50046E1F2 /* GVPhoto.m */,
 				0A6D90681764C03C00D3A20B /* GVPhotoBrowser.h */,
 				0A6D90691764C03C00D3A20B /* GVPhotoBrowser.m */,
 				0A6D906B1764C05900D3A20B /* GVPhotoBrowserViewController.h */,
@@ -138,9 +149,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A6D90641764C00C00D3A20B /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
+				CF0788D8D645450B978ADBBF /* Check Pods Manifest.lock */,
 				0A6D903D1764C00C00D3A20B /* Sources */,
 				0A6D903E1764C00C00D3A20B /* Frameworks */,
 				0A6D903F1764C00C00D3A20B /* Resources */,
+				7C07C756BDB243C899C2BEB3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -194,6 +207,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7C07C756BDB243C899C2BEB3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		CF0788D8D645450B978ADBBF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0A6D903D1764C00C00D3A20B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -204,6 +248,7 @@
 				0A6D90611764C00C00D3A20B /* ViewController.m in Sources */,
 				0A6D906A1764C03C00D3A20B /* GVPhotoBrowser.m in Sources */,
 				0A6D906D1764C05900D3A20B /* GVPhotoBrowserViewController.m in Sources */,
+				0A72B3711768B9F50046E1F2 /* GVPhoto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +299,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -278,7 +323,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -287,10 +332,12 @@
 		};
 		0A6D90651764C00C00D3A20B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C43627F23CDD4C55B8EA5895 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				INFOPLIST_FILE = "Example/Example-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -298,10 +345,12 @@
 		};
 		0A6D90661764C00C00D3A20B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C43627F23CDD4C55B8EA5895 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				INFOPLIST_FILE = "Example/Example-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

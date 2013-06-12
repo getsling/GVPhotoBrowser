@@ -7,6 +7,7 @@
 //
 
 #import "GVPhotoBrowser.h"
+#import "GVPhoto.h"
 
 
 // ScrollViewDelegate explanation
@@ -165,7 +166,7 @@
 
 - (void)layoutPages {
     // Move all visible pages to their places, because otherwise they may overlap
-    UIImageView *controller;
+    UIScrollView *controller;
     for (NSUInteger pageIndex = 0; pageIndex < [self.numberOfPhotos integerValue]; ++pageIndex) {
         controller = [self.imageViews objectAtIndex:pageIndex];
 
@@ -175,14 +176,27 @@
     }
 }
 
-- (UIImageView *)imageView {
-    if ([self.dataSource respondsToSelector:@selector(baseImageViewForPhotoBrowser:)]) {
-        return [self.dataSource baseImageViewForPhotoBrowser:self];
+- (GVPhoto *)createScrollViewForIndex:(NSUInteger)index {
+    GVPhoto *scrollView = [[GVPhoto alloc] initWithFrame:self.frame];
+    scrollView.delegate = self;
+    scrollView.imageView = [self createImageViewForIndex:index withFrame:scrollView.bounds];
+
+    return scrollView;
+}
+
+- (UIImageView *)createImageViewForIndex:(NSUInteger)index withFrame:(CGRect)frame {
+    UIImageView *imageView;
+
+    if ([self.dataSource respondsToSelector:@selector(baseImageViewForPhotoBrowser:withFrame:)]) {
+        imageView = [self.dataSource baseImageViewForPhotoBrowser:self withFrame:frame];
+    } else {
+        imageView = [[UIImageView alloc] initWithFrame:frame];
+        imageView.clipsToBounds = YES;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
 
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    imageView.clipsToBounds = YES;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView = [self.dataSource photoBrowser:self modifyImageView:imageView forIndex:index];
+
     return imageView;
 }
 
@@ -191,9 +205,9 @@
     if (![self.numberOfPhotos integerValue]) return;
 
     // Replace the placeholder if necessary
-    UIImageView *controller = [self.imageViews objectAtIndex:index];
+    UIScrollView *controller = [self.imageViews objectAtIndex:index];
     if ((NSNull *)controller == [NSNull null]) {
-        controller = [self.dataSource photoBrowser:self modifyImageView:[self imageView] forIndex:index];
+        controller = [self createScrollViewForIndex:index];
         [self.imageViews replaceObjectAtIndex:index withObject:controller];
     }
 
@@ -205,14 +219,14 @@
 }
 
 - (void)layoutPhotoAtIndex:(NSUInteger)index {
-    UIImageView *controller = [self.imageViews objectAtIndex:index];
+    UIScrollView *controller = [self.imageViews objectAtIndex:index];
 
     CGRect frame = self.bounds;
     frame.origin.x = self.bounds.size.width * index;
     controller.frame = frame;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)containerScrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.rotationInProgress) return;
 
     NSInteger index = floor((self.contentOffset.x - self.frame.size.width / 2) / self.frame.size.width) + 1;
@@ -245,7 +259,7 @@
     self.rotationInProgress = YES;
 
     // Hide all pages except the current one, because pages may overlap during animation
-    UIImageView *controller;
+    UIScrollView *controller;
     for (NSUInteger pageIndex = 0; pageIndex < [self.numberOfPhotos integerValue]; ++pageIndex) {
         controller = [self.imageViews objectAtIndex:pageIndex];
 
@@ -260,7 +274,7 @@
     [self layoutPages];
 
     // Unhide all pages
-    UIImageView *controller;
+    UIScrollView *controller;
     for (NSUInteger pageIndex = 0; pageIndex < [self.numberOfPhotos integerValue]; ++pageIndex) {
         controller = [self.imageViews objectAtIndex:pageIndex];
 
@@ -275,7 +289,7 @@
 - (void)handleMemoryWarning {
 	// Unload non-visible pages in case the memory is scarse
 	if ([self.imageViews count]) {
-		UIImageView *controller;
+		UIScrollView *controller;
 		for (NSUInteger pageIndex = 0; pageIndex < self.imageViews.count; ++pageIndex) {
 			if (pageIndex < self.currentIndex-1 || pageIndex > self.currentIndex+1) {
 				controller = [self.imageViews objectAtIndex:pageIndex];
@@ -294,6 +308,17 @@
     [self setCurrentIndex:currentIndex andScroll:YES];
 }
 
+#pragma mark - Per photo scroll view
+
+- (UIView *)viewForZoomingInScrollView:(GVPhoto *)scrollView {
+    return scrollView.imageView;
+}
+
+- (void)scrollViewDidZoom:(GVPhoto *)scrollView {
+    // The scroll view has zoomed, so you need to re-center the contents
+    [scrollView centerScrollViewContents];
+}
+
 @end
 
 
@@ -301,7 +326,7 @@
 @implementation ScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [(GVPhotoBrowser *)scrollView scrollViewDidScroll:scrollView];
+    [(GVPhotoBrowser *)scrollView containerScrollViewDidScroll:scrollView];
     if ([self.photoBrowserDelegate respondsToSelector:_cmd]) {
         [self.photoBrowserDelegate scrollViewDidScroll:scrollView];
     }
