@@ -23,6 +23,7 @@
 		0A6D907817651EB100D3A20B /* duck.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D907717651EB100D3A20B /* duck.jpg */; };
 		0A72B36E17688A760046E1F2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A72B36D17688A760046E1F2 /* README.md */; };
 		0A72B3711768B9F50046E1F2 /* GVPhotoZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A72B3701768B9F50046E1F2 /* GVPhotoZoomScrollView.m */; };
+		0A795150176A07E300DBC970 /* GVPhotoBrowser.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 0A79514F176A07E300DBC970 /* GVPhotoBrowser.podspec */; };
 		791BB93E06AA48939B828C14 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0A464AB0284118862802F5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 		0A72B36D17688A760046E1F2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		0A72B36F1768B9F50046E1F2 /* GVPhotoZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVPhotoZoomScrollView.h; sourceTree = "<group>"; };
 		0A72B3701768B9F50046E1F2 /* GVPhotoZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVPhotoZoomScrollView.m; sourceTree = "<group>"; };
+		0A79514F176A07E300DBC970 /* GVPhotoBrowser.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GVPhotoBrowser.podspec; sourceTree = "<group>"; };
 		3F0A464AB0284118862802F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43627F23CDD4C55B8EA5895 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -79,6 +81,7 @@
 				0A6D90421764C00C00D3A20B /* Products */,
 				0A72B36D17688A760046E1F2 /* README.md */,
 				C43627F23CDD4C55B8EA5895 /* Pods.xcconfig */,
+				0A79514F176A07E300DBC970 /* GVPhotoBrowser.podspec */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,6 +203,7 @@
 				0A6D90591764C00C00D3A20B /* Default@2x.png in Resources */,
 				0A6D905B1764C00C00D3A20B /* Default-568h@2x.png in Resources */,
 				0A6D905E1764C00C00D3A20B /* MainStoryboard.storyboard in Resources */,
+				0A795150176A07E300DBC970 /* GVPhotoBrowser.podspec in Resources */,
 				0A6D907817651EB100D3A20B /* duck.jpg in Resources */,
 				0A72B36E17688A760046E1F2 /* README.md in Resources */,
 			);

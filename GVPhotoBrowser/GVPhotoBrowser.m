@@ -108,7 +108,7 @@
 
     // Loads the first 2 photos and informs the delegate
     _currentIndex = -1; // needed otherwise `setcurrentIndex:andScroll:` won't do anything
-    [self setCurrentIndex:0 andScroll:NO];
+    [self setCurrentIndex:self.currentIndex andScroll:NO];
 
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 
