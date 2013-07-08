@@ -48,6 +48,3 @@ If you don't want to use the `GVPhotoBrowserViewController` subclass, you can ju
 @property (weak, nonatomic) IBOutlet GVPhotoBrowser *photoBrowser;
 @end
 ```
-
-## Known issues
-GVPhotoBrowser is very much a work in progress, and the public API might change.
