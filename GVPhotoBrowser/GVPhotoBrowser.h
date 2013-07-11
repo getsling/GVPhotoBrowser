@@ -13,30 +13,63 @@
 
 
 @protocol GVPhotoBrowserDataSource <NSObject>
-// How many photos do you want to show?
+
 @required
+
+/**
+ * How many photo's to show
+ *
+ * @param photoBrowser The photoBrowser asking the question
+ * @return The number of photo's to show
+ */
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(GVPhotoBrowser *)photoBrowser;
 
-// The method is passed an imageview that's set up with the correct content mode, auto resizing mask, etc.
-// You can modify the imageview as you see fit, set its image property, add subviews, whatever you want.
-@required
+/**
+ * Modify the blank imageView
+ *
+ * @param photoBrowser The photoBrowser asking the question
+ * @param imageView An instance of UIImageView already set up with the correct content mode, auto resizing mask, etc. You have to set its image property and can can also choose to modify the imageview as you see fit (add subviews for example).
+ * @param index The photo index belonging to this imageView
+ * @return The modified imageView
+ */
 - (UIImageView *)photoBrowser:(GVPhotoBrowser *)photoBrowser customizeImageView:(UIImageView *)imageView forIndex:(NSUInteger)index;
 
-// The imageview that's passed to the photoBrowser:modifyImageView:forIndex: method is created by GVPhotoBrowser.
-// You can also create your own "base" imageview that's then passed to that method instead.
 @optional
+
+/**
+ * You can give a custom UIImageView instance to the photoBrowser:modifyImageView:forIndex: method
+ *
+ * @param photoBrowser The photoBrowser asking the question
+ * @param frame The frame that the imageView has to frame
+ * @return Your custom instance of the base UIImageView
+ */
 - (UIImageView *)baseImageViewForPhotoBrowser:(GVPhotoBrowser *)photoBrowser withFrame:(CGRect)frame;
 
-@optional
-// Gives you the change to customize the per-photo scroll view
-- (GVPhotoZoomScrollView *)photoBrowser:(GVPhotoBrowser *)photoBrowser customizeScrollView:(GVPhotoZoomScrollView *)imageView forIndex:(NSUInteger)index;
+/**
+ * Modify the per-photo scroll view
+ *
+ * @param photoBrowser The photoBrowser asking the question
+ * @param scrollView An instance of GVPhotoZoomScrollView that you can modify as you see fit.
+ * @param index The photo index belonging to this scrollView
+ * @return Your custom instance of the base GVPhotoZoomScrollView
+ */
+- (GVPhotoZoomScrollView *)photoBrowser:(GVPhotoBrowser *)photoBrowser customizeScrollView:(GVPhotoZoomScrollView *)scrollView forIndex:(NSUInteger)index;
 
 @end
 
 
 @protocol GVPhotoBrowserDelegate <NSObject, UIScrollViewDelegate, UIScrollViewDelegate>
+
 @optional
+
+/**
+ * The delegate can tell you when the photobrowser switched to a new photo
+ *
+ * @param photoBrowser The photoBrowser telling you
+ * @param index The photo index that was switched to
+ */
 - (void)photoBrowser:(GVPhotoBrowser *)photoBrowser didSwitchToIndex:(NSUInteger)index;
+
 @end
 
 
@@ -44,6 +77,8 @@
 
 @property (weak, nonatomic) IBOutlet id <GVPhotoBrowserDataSource> dataSource;
 @property (weak, nonatomic) IBOutlet id <GVPhotoBrowserDelegate> delegate;
+
+/// Which photo to show. Changing the value will scroll to that photo.
 @property (nonatomic) NSInteger currentIndex;
 
 @end
