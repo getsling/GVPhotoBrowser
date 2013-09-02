@@ -46,6 +46,8 @@
 @property (strong, nonatomic) NSMutableArray *imageViews;
 @property (nonatomic) NSNumber *numberOfPhotos;
 @property (nonatomic) BOOL rotationInProgress;
+@property (nonatomic) BOOL done;
+@property (nonatomic) NSUInteger startingIndex;
 @end
 
 
@@ -54,20 +56,19 @@
 #pragma mark - Delegate handling
 
 - (id)initWithFrame:(CGRect)frame {
-    NSLog(@"initWithFrame");
     self = [super initWithFrame:frame];
     [self sharedInit];
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    NSLog(@"initWithCoder");
     self = [super initWithCoder:aDecoder];
     [self sharedInit];
     return self;
 }
 
 - (void)sharedInit {
+    _currentIndex = -1;
     self.pagingEnabled = YES;
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
@@ -77,8 +78,6 @@
 }
 
 - (void)setDelegate:(id <GVPhotoBrowserDelegate>)delegate {
-    NSLog(@"setDelegate");
-
     self.internalDelegate.photoBrowserDelegate = delegate;
 
     super.delegate = nil;
@@ -91,32 +90,17 @@
 
 #pragma mark - View Lifecycle
 
-- (void)awakeFromNib {
-    NSLog(@"awakeFromNib");
-    [super awakeFromNib];
-    if (self.dataSource) {
-        [self start];
-    }
-}
-
-- (void)didMoveToSuperview {
-    NSLog(@"didMoveToSuperview");
-    [super didMoveToSuperview];
-    if (self.dataSource) {
-        [self start];
-    }
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    [self start];
 }
 
 - (void)start {
-    NSLog(@"frame: %@", NSStringFromCGRect(self.frame));
-    NSLog(@"bounds: %@", NSStringFromCGRect(self.bounds));
-
     self.imageViews = nil;
     [self sizeScrollView];
 
     // Loads the first 2 photos and informs the delegate
-    _currentIndex = -1;
-    [self setCurrentIndex:0 andScroll:NO];
+    [self setCurrentIndex:self.startingIndex andScroll:YES];
 
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 
@@ -134,6 +118,8 @@
                                              selector:@selector(orientationChangedNotification:)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
+
+    self.done = YES;
 }
 
 - (void)dealloc {
@@ -169,7 +155,6 @@
 
 - (void)sizeScrollView {
     self.contentSize = CGSizeMake(self.frame.size.width * [self.numberOfPhotos integerValue], self.frame.size.height);
-    self.contentOffset = CGPointMake(self.currentIndex * self.frame.size.width, 0);
 }
 
 - (void)layoutPages {
@@ -319,6 +304,11 @@
 #pragma mark - Public
 
 - (void)setCurrentIndex:(NSInteger)currentIndex {
+    if (!self.done) {
+        self.startingIndex = currentIndex;
+        return;
+    }
+
     [self setCurrentIndex:currentIndex andScroll:YES];
 }
 

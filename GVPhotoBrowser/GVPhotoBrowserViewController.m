@@ -10,15 +10,17 @@
 
 @implementation GVPhotoBrowserViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
-    self.photoBrowser = [[GVPhotoBrowser alloc] initWithFrame:self.view.bounds];
-    self.photoBrowser.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    self.photoBrowser.delegate = self;
-    self.photoBrowser.dataSource = self;
+    if (!self.photoBrowser) {
+        self.photoBrowser = [[GVPhotoBrowser alloc] initWithFrame:self.view.bounds];
+        self.photoBrowser.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.photoBrowser.delegate = self;
+        self.photoBrowser.dataSource = self;
 
-    [self.view addSubview:self.photoBrowser];
+        [self.view addSubview:self.photoBrowser];
+    }
 }
 
 #pragma mark - GVPhotoBrowserDataSource

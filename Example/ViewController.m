@@ -15,11 +15,6 @@
     return YES;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"correct bounds: %@", NSStringFromCGRect(self.view.bounds));
-}
-
 #pragma mark - GVPhotoBrowserDataSource
 
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(GVPhotoBrowser *)photoBrowser {
