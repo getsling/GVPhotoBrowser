@@ -68,7 +68,7 @@
 }
 
 - (void)sharedInit {
-    _currentIndex = -1;
+    _currentIndex = -1; // needed so `setcurrentIndex:andScroll:` sees self.startingIndex=0 as a change
     self.pagingEnabled = YES;
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
