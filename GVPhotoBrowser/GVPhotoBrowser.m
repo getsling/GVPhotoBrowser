@@ -41,7 +41,6 @@
 @end
 
 
-
 @interface GVPhotoBrowser () <UIScrollViewDelegate>
 @property (strong, nonatomic) ScrollViewDelegate *internalDelegate;
 @property (strong, nonatomic) NSMutableArray *imageViews;
@@ -55,12 +54,14 @@
 #pragma mark - Delegate handling
 
 - (id)initWithFrame:(CGRect)frame {
+    NSLog(@"initWithFrame");
     self = [super initWithFrame:frame];
     [self sharedInit];
     return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
+    NSLog(@"initWithCoder");
     self = [super initWithCoder:aDecoder];
     [self sharedInit];
     return self;
@@ -76,6 +77,8 @@
 }
 
 - (void)setDelegate:(id <GVPhotoBrowserDelegate>)delegate {
+    NSLog(@"setDelegate");
+
     self.internalDelegate.photoBrowserDelegate = delegate;
 
     super.delegate = nil;
@@ -89,6 +92,7 @@
 #pragma mark - View Lifecycle
 
 - (void)awakeFromNib {
+    NSLog(@"awakeFromNib");
     [super awakeFromNib];
     if (self.dataSource) {
         [self start];
@@ -96,6 +100,7 @@
 }
 
 - (void)didMoveToSuperview {
+    NSLog(@"didMoveToSuperview");
     [super didMoveToSuperview];
     if (self.dataSource) {
         [self start];
@@ -103,12 +108,15 @@
 }
 
 - (void)start {
+    NSLog(@"frame: %@", NSStringFromCGRect(self.frame));
+    NSLog(@"bounds: %@", NSStringFromCGRect(self.bounds));
+
     self.imageViews = nil;
     [self sizeScrollView];
 
     // Loads the first 2 photos and informs the delegate
-    _currentIndex = -1; // needed otherwise `setcurrentIndex:andScroll:` won't do anything
-    [self setCurrentIndex:self.currentIndex andScroll:NO];
+    _currentIndex = -1;
+    [self setCurrentIndex:0 andScroll:NO];
 
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 

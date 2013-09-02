@@ -24,6 +24,7 @@
 		0A72B36E17688A760046E1F2 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A72B36D17688A760046E1F2 /* README.md */; };
 		0A72B3711768B9F50046E1F2 /* GVPhotoZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A72B3701768B9F50046E1F2 /* GVPhotoZoomScrollView.m */; };
 		0A795150176A07E300DBC970 /* GVPhotoBrowser.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 0A79514F176A07E300DBC970 /* GVPhotoBrowser.podspec */; };
+		0AFC7B0617D5325A0017704D /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AFC7B0517D5325A0017704D /* ViewController2.m */; };
 		791BB93E06AA48939B828C14 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0A464AB0284118862802F5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,8 @@
 		0A72B36F1768B9F50046E1F2 /* GVPhotoZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVPhotoZoomScrollView.h; sourceTree = "<group>"; };
 		0A72B3701768B9F50046E1F2 /* GVPhotoZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVPhotoZoomScrollView.m; sourceTree = "<group>"; };
 		0A79514F176A07E300DBC970 /* GVPhotoBrowser.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GVPhotoBrowser.podspec; sourceTree = "<group>"; };
+		0AFC7B0417D5325A0017704D /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
+		0AFC7B0517D5325A0017704D /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
 		3F0A464AB0284118862802F5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43627F23CDD4C55B8EA5895 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -112,6 +115,8 @@
 				0A6D905C1764C00C00D3A20B /* MainStoryboard.storyboard */,
 				0A6D905F1764C00C00D3A20B /* ViewController.h */,
 				0A6D90601764C00C00D3A20B /* ViewController.m */,
+				0AFC7B0417D5325A0017704D /* ViewController2.h */,
+				0AFC7B0517D5325A0017704D /* ViewController2.m */,
 				0A6D904B1764C00C00D3A20B /* Supporting Files */,
 			);
 			path = Example;
@@ -253,6 +258,7 @@
 				0A6D906A1764C03C00D3A20B /* GVPhotoBrowser.m in Sources */,
 				0A6D906D1764C05900D3A20B /* GVPhotoBrowserViewController.m in Sources */,
 				0A72B3711768B9F50046E1F2 /* GVPhotoZoomScrollView.m in Sources */,
+				0AFC7B0617D5325A0017704D /* ViewController2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

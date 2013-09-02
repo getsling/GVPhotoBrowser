@@ -1,23 +1,29 @@
 //
-//  ViewController.m
+//  ViewController2.m
 //  Example
 //
-//  Created by Kevin Renskers on 09-06-13.
+//  Created by Kevin Renskers on 02/09/13.
 //  Copyright (c) 2013 Gangverk. All rights reserved.
 //
 
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "ViewController.h"
+#import "ViewController2.h"
+#import "GVPhotoBrowser.h"
 
-@implementation ViewController
+@interface ViewController2 () <GVPhotoBrowserDataSource, GVPhotoBrowserDelegate>
+@property (weak, nonatomic) IBOutlet GVPhotoBrowser *photoBrowser;
+@end
+
+
+@implementation ViewController2
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.photoBrowser.currentIndex = 2;
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
     return YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"correct bounds: %@", NSStringFromCGRect(self.view.bounds));
 }
 
 #pragma mark - GVPhotoBrowserDataSource
