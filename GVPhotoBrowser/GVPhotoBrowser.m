@@ -305,6 +305,9 @@
 
 - (void)setCurrentIndex:(NSInteger)currentIndex {
     if (!self.done) {
+        // If you're trying to set currentIndex before the view has even been
+        // loaded then change the startingIndex instead and let the start
+        // method deal with it from there.
         self.startingIndex = currentIndex;
         return;
     }
@@ -324,7 +327,6 @@
 }
 
 @end
-
 
 
 @implementation ScrollViewDelegate
