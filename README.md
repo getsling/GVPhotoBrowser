@@ -1,4 +1,8 @@
 # GVPhotoBrowser
+
+[![Badge w/ Version](https://cocoapod-badges.herokuapp.com/v/GVPhotoBrowser/badge.png)](http://cocoadocs.org/docsets/GVPhotoBrowser)
+[![Badge w/ Platform](https://cocoapod-badges.herokuapp.com/p/GVPhotoBrowser/badge.svg)](http://cocoadocs.org/docsets/GVPhotoBrowser)
+
 A reusable, zoomable image gallery for iOS using the datasource and delegate patterns. Handles device orientation changes and memory warnings.
 
 
