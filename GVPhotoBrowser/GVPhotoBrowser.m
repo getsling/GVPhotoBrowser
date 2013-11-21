@@ -95,6 +95,7 @@
     [self start];
 }
 
+
 - (void)start {
     self.imageViews = nil;
     [self sizeScrollView];
@@ -302,6 +303,13 @@
 }
 
 #pragma mark - Public
+
+- (void) reloadPhotoBrowser
+{
+    _numberOfPhotos = nil ;
+    self.startingIndex = 0;
+    [self setNeedsDisplay];
+}
 
 - (void)setCurrentIndex:(NSInteger)currentIndex {
     if (!self.done) {
