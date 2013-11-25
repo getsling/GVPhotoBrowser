@@ -304,7 +304,7 @@
 
 #pragma mark - Public
 
-- (void)reloadPhotoBrowser {
+- (void)reloadData {
     _numberOfPhotos = nil;
     [self setNeedsDisplay];
 }
