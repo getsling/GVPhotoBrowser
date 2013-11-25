@@ -81,4 +81,6 @@
 /// Which photo to show. Changing the value will scroll to that photo.
 @property (nonatomic) NSInteger currentIndex;
 
+- (void)reloadPhotoBrowser;
+
 @end
