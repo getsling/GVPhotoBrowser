@@ -284,6 +284,11 @@
     }
 
     self.rotationInProgress = NO;
+
+	// reset the current index to force repositioning
+	NSInteger oldIndex = _currentIndex;
+	_currentIndex = -1;
+	[self setCurrentIndex:oldIndex andScroll:YES];
 }
 
 - (void)handleMemoryWarning {
