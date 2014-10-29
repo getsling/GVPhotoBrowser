@@ -25,15 +25,15 @@
     NSArray *letters = @[ @"a", @"b", @"c", @"d", @"e" ];
     NSString *color = [@"" stringByPaddingToLength:6 withString:letters[index] startingAtIndex:0];
 
-    NSString *urlString = [NSString stringWithFormat:@"http://placehold.it/350x500/%@/ffffff&text=%i", color, index+1];
-    [imageView setImageWithURL:[NSURL URLWithString:urlString]];
+    NSString *urlString = [NSString stringWithFormat:@"http://placehold.it/350x500/%@/ffffff&text=%lu", color, (unsigned long)index+1];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:urlString]];
     return imageView;
 }
 
 #pragma mark - GVPhotoBrowserDelegate
 
 - (void)photoBrowser:(GVPhotoBrowser *)photoBrowser didSwitchToIndex:(NSUInteger)index {
-    NSLog(@"didSwitchToIndex: %i", index);
+    NSLog(@"didSwitchToIndex: %lu", (unsigned long)index);
 }
 
 @end
