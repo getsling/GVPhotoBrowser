@@ -70,6 +70,14 @@
  */
 - (void)photoBrowser:(GVPhotoBrowser *)photoBrowser didSwitchToIndex:(NSUInteger)index;
 
+
+/**
+ * The delegate can tell you when the photobrowser received a single tap
+ *
+ * @param photoBrowser The photoBrowser telling you
+ */
+- (void)photoBrowserSingleTapped:(GVPhotoBrowser *)photoBrowser;
+
 @end
 
 

@@ -75,7 +75,45 @@
 
     self.internalDelegate = [[ScrollViewDelegate alloc] init];
     [super setDelegate:self.internalDelegate];
+    
+    
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    singleTap.delaysTouchesBegan = YES;
+    singleTap.numberOfTapsRequired = 1;
+    [self addGestureRecognizer:singleTap];
+    
+    
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:doubleTap];
+    
+    [singleTap requireGestureRecognizerToFail:doubleTap];
 }
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)tap {
+    [self performSelector:@selector(singleTapped) withObject:nil afterDelay:0.2];
+}
+
+- (void)singleTapped
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(photoBrowserSingleTapped:)]) {
+        [self.delegate photoBrowserSingleTapped:self];
+    }
+}
+
+- (void)handleDoubleTap:(UITapGestureRecognizer *)tap {
+    
+    UIScrollView *controller = [self.imageViews objectAtIndex: _currentIndex];
+    CGPoint touchPoint = [tap locationInView:controller];
+    
+    if (controller.zoomScale == controller.maximumZoomScale) {
+        [controller setZoomScale:1.0 animated:YES];
+    } else {
+        [controller zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
+    }
+    
+}
+
 
 - (void)setDelegate:(id <GVPhotoBrowserDelegate>)delegate {
     self.internalDelegate.photoBrowserDelegate = delegate;
