@@ -25,7 +25,7 @@
     NSArray *letters = @[ @"a", @"b", @"c", @"d", @"e" ];
     NSString *color = [@"" stringByPaddingToLength:6 withString:letters[index] startingAtIndex:0];
 
-    NSString *urlString = [NSString stringWithFormat:@"http://placehold.it/350x500/%@/ffffff&text=%lu", color, (unsigned long)index+1];
+    NSString *urlString = [NSString stringWithFormat:@"https://placehold.it/350x500/%@/ffffff&text=%lu", color, (unsigned long)index+1];
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString]];
     return imageView;
 }
