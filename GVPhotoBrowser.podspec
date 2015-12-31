@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "GVPhotoBrowser"
-  s.version      = "0.10.0"
+  s.version      = "0.10.1"
   s.summary      = "A reusable, zoomable image gallery for iOS using the datasource and delegate patterns. Handles device orientation changes & memory warnings."
   s.homepage     = "https://github.com/gangverk/GVPhotoBrowser"
   s.license      = 'MIT'

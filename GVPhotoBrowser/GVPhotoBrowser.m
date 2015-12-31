@@ -154,13 +154,17 @@
 }
 
 - (void)handleDoubleTap:(UITapGestureRecognizer *)tap {
-    UIScrollView *controller = [self.imageViews objectAtIndex: _currentIndex];
-    CGPoint touchPoint = [tap locationInView:controller];
+    UIScrollView *scrollView = [self.imageViews objectAtIndex: _currentIndex];
+    if (!scrollView) {
+        return;
+    }
 
-    if (controller.zoomScale == controller.maximumZoomScale) {
-        [controller setZoomScale:1.0 animated:YES];
+    CGPoint touchPoint = [tap locationInView:scrollView];
+
+    if (scrollView.zoomScale == scrollView.maximumZoomScale) {
+        [scrollView setZoomScale:1.0 animated:YES];
     } else {
-        [controller zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
+        [scrollView zoomToRect:CGRectMake(touchPoint.x, touchPoint.y, 1, 1) animated:YES];
     }
 }
 
