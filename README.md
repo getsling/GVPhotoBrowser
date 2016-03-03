@@ -5,6 +5,9 @@
 
 A reusable, zoomable image gallery for iOS using the datasource and delegate patterns. Handles device orientation changes and memory warnings.
 
+# Unmaintained
+This project is no longer maintained, please switch to something else like [MWPhotoBrowser](https://github.com/mwaterfall/MWPhotoBrowser).
+
 
 ## Features
 GVPhotoBrowser is extremely flexible. Where other photo browsers expect an array of `UIImage` objects or maybe `NSURL`'s, GVPhotoBrowser instead uses the datasource pattern and will ask you to provide it with a `UIImageView` for every image. It's very similar to `UITableView`.
