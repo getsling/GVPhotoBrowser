@@ -377,7 +377,7 @@
 
 @implementation ScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     [(GVPhotoBrowser *)scrollView containerScrollViewDidScroll:scrollView];
     if ([self.photoBrowserDelegate respondsToSelector:_cmd]) {
         [self.photoBrowserDelegate scrollViewDidScroll:scrollView];
